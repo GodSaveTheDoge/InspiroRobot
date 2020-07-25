@@ -17,11 +17,17 @@ if len(sys.argv) < 2:
         "InspiroRobot",
         config_file="config.ini")
 else:
-    bot = Client(
-        "InspiroRobot",
-        api_id=os.environ["API_ID"],
-        api_hash=os.environ["API_HASH"],
-        bot_token=os.environ["BOT_TOKEN"])
+    if sys.argv[1] == "string":
+        bot = Client(
+            os.environ["SESSION_STRING"]
+        )
+    else:
+        bot = Client(
+            "InspiroRobot",
+            api_id=os.environ["API_ID"],
+            api_hash=os.environ["API_HASH"],
+            bot_token=os.environ["BOT_TOKEN"]
+        )
 
 pre = ["/", "."]
 userDidNotStart = ["Well, you could at least start me.", "You need to start me, don't you?",
@@ -188,6 +194,8 @@ def inline_inspiremp3(c, query):
                                    [InlineKeyboardButton("Inspire me again", callback_data="inspire"),
                                     InlineKeyboardButton("Save it", callback_data="save-{}".format(url))]])
                                )],
+        is_gallery=True,
+        is_personal=True,
         cache_time=1)
 
 
